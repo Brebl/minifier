@@ -19,15 +19,15 @@
 #include <cctype>
 #include <limits>
 #include <chrono>
-#if __GNUC__ <= 3 && __linux__ == 1
-#error For your own good, please use gnu-compiler from this millenium!
+#if __GNUC__ < 8
+#warning For your own good, please use gnu-compiler from this millenium!
 #endif
 #ifdef __GNUC__
 #include <unistd.h> //getopt
 #endif
 #define MAX std::numeric_limits<std::streamsize>::max()
 #define MAJOR_VERSION 1
-#define MINOR_VERSION 1
+#define MINOR_VERSION 2
 #define PATCH_VERSION 0
 
 int main(int argc, char** argv)
@@ -63,9 +63,16 @@ int main(int argc, char** argv)
             << "version: " << MAJOR_VERSION << "." << MINOR_VERSION << "." << PATCH_VERSION << "\n";
             exit(0);
     }
+#ifdef __linux__
     if(argc > 2) {
         freopen(argv[2],"w",stdout);
     }
+#endif
+#ifdef _WIN32
+    errno_t err;
+    FILE* stream = nullptr;
+    err = freopen_s(&stream, argv[2], "w", stdout);
+#endif
 
     //do stuff with those arguments
     std::ifstream in;
