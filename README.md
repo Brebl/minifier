@@ -6,6 +6,9 @@ Eg. html, css, js, xml...
 g++ main.cpp -o minifier  
 sudo ln -s [path_to_your_dir]/minifier /usr/local/bin/minifier  
   
+Or, use your favorite compiler. Pretty standard library stuff.  
+No additional dependencies.
+  
 ## Example usage  
 ### Arguments  
 Give this program as an argument the filename you want to minify.  
