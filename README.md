@@ -14,3 +14,6 @@ So you can also pipe output to other programs, cgi for example.
   
 ## Example usage  
 minifier bigAssFile.js bigAssFile.min.js  
+
+## Benchmark  
+500kB benchmark.js minification took 45ms
