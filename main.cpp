@@ -18,6 +18,7 @@
 #include <fstream>
 #include <cctype>
 #include <limits>
+#include <chrono>
 #if __GNUC__ <= 3 && __linux__ == 1
 #error For your own good, please use gnu-compiler from this millenium!
 #endif
@@ -26,11 +27,12 @@
 #endif
 #define MAX std::numeric_limits<std::streamsize>::max()
 #define MAJOR_VERSION 1
-#define MINOR_VERSION 0
+#define MINOR_VERSION 1
 #define PATCH_VERSION 0
 
 int main(int argc, char** argv)
 {    
+    const std::chrono::steady_clock::time_point start { std::chrono::steady_clock::now() };
     //handle arguments
 #ifdef __GNUC__
     int opt = 0;
@@ -103,5 +105,8 @@ int main(int argc, char** argv)
             }
         }
         std::cout << c;
-    }   
+    }
+    std::chrono::steady_clock::time_point finish  { std::chrono::steady_clock::now() };
+    std::chrono::milliseconds ns = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start);
+    std::clog << "Minify took: " << ns.count() << "ms\n";
 }
