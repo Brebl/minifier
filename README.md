@@ -4,7 +4,7 @@ Eg. html, css, js, xml...
   
 ## Compile and setup 
 g++ main.cpp -o minifier  
-sudo ln -s `pwd`/minifier /usr/local/bin/minifier  
+sudo ln -s \`pwd\`/minifier /usr/local/bin/minifier  
   
 Or, use your favorite compiler. Pretty standard library stuff.  
 No additional dependencies.
