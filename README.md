@@ -20,4 +20,4 @@ So you can also pipe output to other programs, cgicc for example.
 minifier bigAssFile.js bigAssFile.min.js  
   
 ### Benchmark  
-500kB benchmark.js minification took 45ms
+500kB benchmark.js minification took 38ms
