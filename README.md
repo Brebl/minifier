@@ -6,9 +6,6 @@ Eg. html, css, js, xml...
 g++ main.cpp -o minifier  
 sudo ln -s \`pwd\`/minifier /usr/local/bin/minifier  
   
-Or, use your favorite compiler. Pretty standard library stuff.  
-No additional dependencies.
-  
 ## Example usage  
 ### Arguments  
 Give this program as an argument the filename you want to minify.  
@@ -17,7 +14,7 @@ If it's not specified, output will be printed to stdout.
 So you can also pipe output to other programs, cgicc for example.  
   
 ### Usage  
-minifier bigAssFile.js bigAssFile.min.js  
+minifier -i bigAssFile.js -o bigAssFile.min.js  
   
 ### Benchmark  
 500kB benchmark.js minification took 38ms
