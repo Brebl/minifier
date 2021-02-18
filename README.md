@@ -14,7 +14,7 @@ If it's not specified, output will be printed to stdout.
 So you can also pipe output to other programs, cgicc for example.  
   
 ### Options
--h  Help
+-h  Help  
 -v  Version info  
 -i  Input filename  
 -o  Output filename, or if ommitted then output will be printed to stdout.  
