@@ -13,8 +13,16 @@ Second argument is optional, it's the name of the output file.
 If it's not specified, output will be printed to stdout.  
 So you can also pipe output to other programs, cgicc for example.  
   
+### Options
+-h  Help
+-v  Version info  
+-i  Input filename  
+-o  Output filename, or if ommitted then output will be printed to stdout.  
+-w  Change output file acces mode to overwrite. Default mode is append.  
+-t  Timer log after minify.  
+  
 ### Usage  
-minifier -i bigAssFile.js -o bigAssFile.min.js  
+minifier -i bigAssFile.js -wto bigAssFile.min.js  
   
 ### Benchmark  
 500kB benchmark.js minification took 38ms
