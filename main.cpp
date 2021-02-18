@@ -120,26 +120,59 @@ int main(int argc, char **argv)
     }
     char c;
     while (in.get(c)) {
-        if (ispunct(c)) { //after punct, discard all spaces until graph
+        //inside quatation, do nothing
+        if(c == '\'') {
+            do {
+                std::cout << c;
+                in.get(c);
+                if(c == '\\') {
+                    std::cout << c;
+                    in.get(c);
+                    std::cout << c;
+                    in.get(c);
+                }
+            } while (c != '\'');
+        }
+        if(c == '\"') {
+            do {
+                std::cout << c;
+                in.get(c);
+                if(c == '\\') {
+                    std::cout << c;
+                    in.get(c);
+                    std::cout << c;
+                    in.get(c);
+                }
+            } while (c != '\"');
+        }
+        //after punct, discard all spaces until graph
+        //punct means: !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+        if (ispunct(c)) { 
             while (isspace(in.peek())) {
                 in.ignore();
             }
         }
-        if (isspace(c) && isspace(in.peek())) { //after space, discard all spaces until graph
+        //after space, discard all spaces until graph
+        //space means: space, tab and white-space control codes
+        if (isspace(c) && isspace(in.peek())) { 
             while (isspace(in.peek())) {
                 in.ignore();
             }
             continue;
         }
-        if (isspace(c) && ispunct(in.peek())) { //discard space, if next is punct
+        //discard space, if next is punct
+        if (isspace(c) && ispunct(in.peek())) { 
             continue;
         }
+        //comments
         if (c == '/') {
-            if (in.peek() == '/') { //after comment, discard all until '\n'
+            //discard line comments
+            if (in.peek() == '/') {
                 in.ignore(MAX, '\n');
                 continue;
             }
-            if (in.peek() == '*') { //discard block comments
+            //discard block comments
+            if (in.peek() == '*') { 
                 while (in.ignore(MAX, '*')) {
                     if (in.peek() == '/') {
                         in.ignore();

@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": ["-i", "benchmark.js", "-o", "bs2.js"],
+            "args": ["-i", "benchmark.js", "-o", "bs.js"],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
             "environment": [],
