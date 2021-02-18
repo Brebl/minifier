@@ -9,15 +9,14 @@ sudo ln -s \`pwd\`/minifier /usr/local/bin/minifier
 ## Example usage  
 ### Arguments  
 Give this program as an argument the filename you want to minify.  
-Second argument is optional, it's the name of the output file.  
-If it's not specified, output will be printed to stdout.  
+Output filename is optional. If it's not specified, output will be printed to stdout.  
 So you can also pipe output to other programs, cgicc for example.  
   
-### Options
+### Options  
 -h  Help  
 -v  Version info  
 -i  Input filename  
--o  Output filename, or if ommitted then output will be printed to stdout.  
+-o  Output filename  
 -w  Change output file acces mode to overwrite. Default mode is append.  
 -t  Timer log after minify.  
   
@@ -25,4 +24,8 @@ So you can also pipe output to other programs, cgicc for example.
 minifier -i bigAssFile.js -to bigAssFile.min.js  
   
 ### Benchmark  
-500kB benchmark.js minification took 38ms
+500kB bigAssFile.js minification took 38ms  
+  
+### Notes  
+By minify, it means that it properly removes whitespaces, tabs, etc. and also comments.  
+After minify, javaScript parsers automatic semicolon insertion won't work anymore.  
