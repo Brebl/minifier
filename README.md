@@ -22,7 +22,7 @@ So you can also pipe output to other programs, cgicc for example.
 -t  Timer log after minify.  
   
 ### Usage  
-minifier -i bigAssFile.js -wto bigAssFile.min.js  
+minifier -i bigAssFile.js -to bigAssFile.min.js  
   
 ### Benchmark  
 500kB benchmark.js minification took 38ms
