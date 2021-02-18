@@ -20,14 +20,14 @@
 #include <limits>
 #include <chrono>
 #if __GNUC__ < 8
-#warning Please use gnu-compiler from this millenium!
+#warning Your compiler seems a bit outdated
 #endif
 #ifdef __GNUC__
 #include <unistd.h> //getopt
 #endif
 #define MAX std::numeric_limits<std::streamsize>::max()
 #define MAJOR_VERSION 2
-#define MINOR_VERSION 0
+#define MINOR_VERSION 1
 #define PATCH_VERSION 0
 
 int main(int argc, char **argv)
