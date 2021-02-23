@@ -5,11 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++ - Build and debug active file",
+            "name": "g++ - Debug active file",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": ["-i", "benchmark.js", "-o", "bs.js"],
+            "args": ["-i", "bigAssFile.js", "-wto", "bs.js"],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
             "environment": [],

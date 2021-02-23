@@ -4,7 +4,7 @@
     //set style
     const style = document.querySelector('#style');
     const toggle = document.querySelector('#daynight');
-    toggle.checked = localStorage.getItem('toggleState') === 'true';
+    toggle.checked = localStorage.getItem('👍') === 'true';
 
     const updateStyle = () => {
         if (toggle.checked) {
@@ -16,7 +16,7 @@
             style.setAttribute('href', 'night.css');
             style.setAttribute('href', 'day.css');
         }
-        localStorage.setItem('toggleState', toggle.checked);
+        localStorage.setItem('👍', toggle.checked);
     };
     updateStyle();
     toggle.addEventListener('change', updateStyle);
