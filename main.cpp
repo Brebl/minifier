@@ -19,6 +19,7 @@
 #include <cctype>
 #include <limits>
 #include <chrono>
+#include <vector>
 #if __GNUC__ < 8
 #warning Your compiler seems a bit outdated
 #endif
@@ -27,14 +28,14 @@
 #endif
 #define MAX std::numeric_limits<std::streamsize>::max()
 #define MAJOR_VERSION 2
-#define MINOR_VERSION 1
+#define MINOR_VERSION 2
 #define PATCH_VERSION 0
 
 int main(int argc, char **argv)
 {
     const std::chrono::steady_clock::time_point start{std::chrono::steady_clock::now()};
-    char *input = nullptr;
-    char *output = nullptr;
+    std::vector<char*>input;
+    char* output = nullptr;
     char mode = 'a';
     bool timer = false;
 // ------------------------------------------------------------
@@ -69,7 +70,7 @@ int main(int argc, char **argv)
             break;
         //input filename
         case 'i':
-            input = optarg;
+            input.emplace_back(optarg);
             break;
         //output filename
         case 'o':
@@ -114,75 +115,78 @@ int main(int argc, char **argv)
     }
 
     std::ifstream in;
-    in.open(input);
-    if (!in) {
-        throw std::runtime_error("input file opening error");
-    }
-    char c;
-    while (in.get(c)) {
-        //inside quatation, do nothing
-        if(c == '\'') {
-            do {
-                std::cout << c;
-                in.get(c);
-                if(c == '\\') {
+    for(auto i: input) {
+        in.open(i);
+        if (!in) {
+            throw std::runtime_error("input file opening error");
+        }
+        char c;
+        while (in.get(c)) {
+            //inside quatation, do nothing
+            if(c == '\'') {
+                do {
                     std::cout << c;
                     in.get(c);
-                    std::cout << c;
-                    in.get(c);
-                }
-            } while (c != '\'');
-        }
-        if(c == '\"') {
-            do {
-                std::cout << c;
-                in.get(c);
-                if(c == '\\') {
-                    std::cout << c;
-                    in.get(c);
-                    std::cout << c;
-                    in.get(c);
-                }
-            } while (c != '\"');
-        }
-        //after punct, discard all spaces until graph
-        //punct means: !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-        if (ispunct(c)) { 
-            while (isspace(in.peek())) {
-                in.ignore();
-            }
-        }
-        //after space, discard all spaces until graph
-        //space means: space, tab and white-space control codes
-        if (isspace(c) && isspace(in.peek())) { 
-            while (isspace(in.peek())) {
-                in.ignore();
-            }
-            continue;
-        }
-        //discard space, if next is punct
-        if (isspace(c) && ispunct(in.peek())) { 
-            continue;
-        }
-        //comments
-        if (c == '/') {
-            //discard line comments
-            if (in.peek() == '/') {
-                in.ignore(MAX, '\n');
-                continue;
-            }
-            //discard block comments
-            if (in.peek() == '*') { 
-                while (in.ignore(MAX, '*')) {
-                    if (in.peek() == '/') {
-                        in.ignore();
-                        break;
+                    if(c == '\\') {
+                        std::cout << c;
+                        in.get(c);
+                        std::cout << c;
+                        in.get(c);
                     }
+                } while (c != '\'');
+            }
+            if(c == '\"') {
+                do {
+                    std::cout << c;
+                    in.get(c);
+                    if(c == '\\') {
+                        std::cout << c;
+                        in.get(c);
+                        std::cout << c;
+                        in.get(c);
+                    }
+                } while (c != '\"');
+            }
+            //after punct, discard all spaces until graph
+            //punct means: !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+            if (ispunct(c)) { 
+                while (isspace(in.peek())) {
+                    in.ignore();
+                }
+            }
+            //after space, discard all spaces until graph
+            //space means: space, tab and white-space control codes
+            if (isspace(c) && isspace(in.peek())) { 
+                while (isspace(in.peek())) {
+                    in.ignore();
                 }
                 continue;
             }
+            //discard space, if next is punct
+            if (isspace(c) && ispunct(in.peek())) { 
+                continue;
+            }
+            //comments
+            if (c == '/') {
+                //discard line comments
+                if (in.peek() == '/') {
+                    in.ignore(MAX, '\n');
+                    continue;
+                }
+                //discard block comments
+                if (in.peek() == '*') { 
+                    while (in.ignore(MAX, '*')) {
+                        if (in.peek() == '/') {
+                            in.ignore();
+                            break;
+                        }
+                    }
+                    continue;
+                }
+            }
+            std::cout << c;
         }
-        std::cout << c;
+        in.close();
     }
     std::chrono::steady_clock::time_point finish{std::chrono::steady_clock::now()};
     std::chrono::milliseconds ns = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start);
