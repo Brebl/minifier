@@ -3,7 +3,9 @@ This cli program is a file minifier written in c++. You can minify all sorts of 
 Eg. html, css, js, xml...  
   
 ## Compile and setup 
-Linux:
+Linux:  
+* cd [path-to-minifier]
+* sudo apt update && sudo apt install build-essential
 * g++ main.cpp -o minifier  
 * sudo ln -s \`pwd\`/minifier /usr/local/bin/minifier  
   
