@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <cctype>
 #include <limits>
 #include <chrono>
@@ -28,7 +29,7 @@
 #endif
 #define MAX std::numeric_limits<std::streamsize>::max()
 #define MAJOR_VERSION 2
-#define MINOR_VERSION 2
+#define MINOR_VERSION 3
 #define PATCH_VERSION 0
 
 int main(int argc, char **argv)
@@ -36,7 +37,7 @@ int main(int argc, char **argv)
     const std::chrono::steady_clock::time_point start{std::chrono::steady_clock::now()};
     std::vector<char*>input;
     char* output = nullptr;
-    char mode = 'a';
+    const char* mode = "a";
     bool timer = false;
 // ------------------------------------------------------------
 // handle arguments
@@ -60,7 +61,7 @@ int main(int argc, char **argv)
                 << "-t  Timer log after minify.\n"
                 << "\n"
                 << "Feedback:\n"
-                << "github.com/Brebl\n";
+                << "https://github.com/Brebl/minifier\n";
             exit(0);
             break;
         //version
@@ -75,10 +76,13 @@ int main(int argc, char **argv)
         //output filename
         case 'o':
             output = optarg;
+            if(!output) {
+                throw std::runtime_error("output file error\n");
+            }
             break;
         //overwrite file access mode
         case 'w':
-            mode = 'w';
+            mode = "w";
             break;
         //get timer output
         case 't':
@@ -105,20 +109,28 @@ int main(int argc, char **argv)
     }
     if (output) {
 #ifdef __linux__
-        freopen(output, &mode, stdout);
+        FILE* stream = nullptr;
+        stream = freopen(output, mode, stdout);
+        if(!stream) {
+            throw std::runtime_error("error on freopen");
+        }
 #endif
 #ifdef _WIN32
         errno_t err;
-        FILE *stream = nullptr;
-        err = freopen_s(&stream, output, &mode, stdout);
+        FILE* stream = nullptr;
+        err = freopen_s(&stream, output, mode, stdout);
+        if( err != 0 ) {
+            std::stringstream ss;
+            ss << err;
+            throw std::runtime_error("error on freopen_s: " + ss.str());
+        }
 #endif
     }
-
     std::ifstream in;
     for(auto i: input) {
         in.open(i);
         if (!in) {
-            throw std::runtime_error("input file opening error");
+            throw std::runtime_error("input file opening error\n");
         }
         char c;
         while (in.get(c)) {
