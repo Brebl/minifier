@@ -4,8 +4,8 @@ Eg. html, css, js, xml...
   
 ## Compile and setup 
 Linux:  
-* cd [path-to-minifier]
 * sudo apt update && sudo apt install build-essential
+* cd [path-to-minifier]
 * g++ main.cpp -o minifier  
 * sudo ln -s \`pwd\`/minifier /usr/local/bin/minifier  
   
