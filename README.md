@@ -3,10 +3,18 @@ This cli program is a file minifier written in c++. You can minify all sorts of 
 Eg. html, css, js, xml...  
   
 ## Compile and setup 
-g++ main.cpp -o minifier  
-sudo ln -s \`pwd\`/minifier /usr/local/bin/minifier  
+Linux:
+* g++ main.cpp -o minifier  
+* sudo ln -s \`pwd\`/minifier /usr/local/bin/minifier  
   
-## Example usage  
+Windows:  
+* Download and install MinGW  
+* Type into windows search-box "run terminal"  
+* cd [path-to-minifier]  
+* g++ main.cpp -o minifier.exe
+* path=%path%;[path-to-minifier]
+  
+## Usage  
 ### Arguments  
 Give this program as an argument the filename you want to minify.  
 Output filename is optional. If it's not specified, output will be printed to stdout.  
@@ -20,7 +28,7 @@ So you can also pipe output to other programs, cgicc for example.
 -w  Change output file acces mode to overwrite. Default mode is append.  
 -t  Timer log after minify.  
   
-### Usage  
+### Example  
 minifier -i bigAssFile.js -to bigAssFile.min.js  
   
 ### Benchmark  
