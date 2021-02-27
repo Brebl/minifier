@@ -31,7 +31,7 @@
 #define MAX std::numeric_limits<std::streamsize>::max()
 #define MAJOR_VERSION 2
 #define MINOR_VERSION 4
-#define PATCH_VERSION 1
+#define PATCH_VERSION 2
 
 int main(int argc, char **argv)
 {
@@ -92,6 +92,10 @@ int main(int argc, char **argv)
         //get timer output
         case 't':
             log = true;
+            break;
+        //obfuscate
+        case 'f';
+
             break;
         default:
             abort();
