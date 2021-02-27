@@ -14,7 +14,7 @@ Windows:
 * Type into windows search-box "run terminal"  
 * cd [path-to-minifier]  
 * g++ main.cpp -o minifier.exe
-* path=%path%;[path-to-minifier]
+* path=%cd%;%path%
   
 ## Usage  
 ### Arguments  
