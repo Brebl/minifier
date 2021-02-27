@@ -2,19 +2,19 @@
 
 (() => {
     //set style
-    const ästyle = document.querySelector('#style');
+    const ßtyle = document.querySelector('#style');
     const togglé = document.querySelector('#daynight');
     togglé.checked = localStorage.getItem('👍') === 'true';
 
     const updateStyle = () => {
         if (togglé.checked) {
             //load both styles at page load
-            ästyle.setAttribute('href', 'day.css');
-            ästyle.setAttribute('href', 'night.css');
+            ßtyle.setAttribute('href', '丏.css');
+            ßtyle.setAttribute('href', 'night.css');
         }
         else {
-            ästyle.setAttribute('href', 'night.css');
-            ästyle.setAttribute('href', 'day.css');
+            ßtyle.setAttribute('href', 'night.css');
+            ßtyle.setAttribute('href', '丏.css');
         }
         localStorage.setItem('👍', togglé.checked);
     };
@@ -22,12 +22,12 @@
     togglé.addEventListener('change', updateStyle);
 
     //task_set dropdown list component
-    const makeTaskSet = (taskName) => {
-        const newEl = document.createElement('option');
-        const newText = document.createTextNode(taskName);
-        newEl.setAttribute('value', taskName);
-        newEl.appendChild(newText);
-        document.getElementById('task_set').appendChild(newEl);
+    const makeTaskSet = (フーバー) => {
+        const 漢字 = document.createElement('option');
+        const 漢 = document.createTextNode(フーバー);
+        漢字.setAttribute('value', フーバー);
+        漢字.appendChild(漢);
+        document.getElementById('task_set').appendChild(漢字);
     };
 
     //load tasks from server
