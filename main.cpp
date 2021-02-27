@@ -21,6 +21,7 @@
 #include <limits>
 #include <chrono>
 #include <vector>
+#include <filesystem>
 #if __GNUC__ < 8
 #warning Your compiler seems a bit outdated
 #endif
@@ -29,16 +30,18 @@
 #endif
 #define MAX std::numeric_limits<std::streamsize>::max()
 #define MAJOR_VERSION 2
-#define MINOR_VERSION 3
-#define PATCH_VERSION 0
+#define MINOR_VERSION 4
+#define PATCH_VERSION 1
 
 int main(int argc, char **argv)
 {
     const std::chrono::steady_clock::time_point start{std::chrono::steady_clock::now()};
     std::vector<char*>input;
-    char* output = nullptr;
-    const char* mode = "a";
-    bool timer = false;
+    char* output{nullptr};
+    const char* mode{"a"};
+    bool log{false};
+    std::filesystem::path filePath{std::filesystem::current_path()};
+    uintmax_t inputSize{0}, outputSize{0}, reducedSize{0};
 // ------------------------------------------------------------
 // handle arguments
 // ------------------------------------------------------------
@@ -58,7 +61,7 @@ int main(int argc, char **argv)
                 << "-i  Input filename\n"
                 << "-o  Output filename, or if ommitted then output will be printed to stdout.\n"
                 << "-w  Change output file acces mode to overwrite. Default mode is append.\n"
-                << "-t  Timer log after minify.\n"
+                << "-t  Log results after minify. (time & compression)\n"
                 << "\n"
                 << "Feedback:\n"
                 << "https://github.com/Brebl/minifier\n";
@@ -72,6 +75,8 @@ int main(int argc, char **argv)
         //input filename
         case 'i':
             input.emplace_back(optarg);
+            filePath = optarg;
+            inputSize += std::filesystem::file_size(filePath);
             break;
         //output filename
         case 'o':
@@ -86,7 +91,7 @@ int main(int argc, char **argv)
             break;
         //get timer output
         case 't':
-            timer = true;
+            log = true;
             break;
         default:
             abort();
@@ -134,7 +139,7 @@ int main(int argc, char **argv)
         }
         char c;
         while (in.get(c)) {
-            //inside quatation, do nothing
+            //inside quotes, do nothing
             if(c == '\'') {
                 do {
                     std::cout << c;
@@ -201,8 +206,17 @@ int main(int argc, char **argv)
         in.close();
     }
     std::chrono::steady_clock::time_point finish{std::chrono::steady_clock::now()};
-    std::chrono::milliseconds ns = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start);
-    if(timer) {
-        std::clog << "Minify took: " << ns.count() << "ms\n";
+    std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start);
+    if(log) {
+        std::clog << "Minify took: " << ms.count() << "ms\n";
+        if(output) {
+            filePath = output;
+            outputSize = std::filesystem::file_size(filePath);
+            reducedSize = inputSize - outputSize;
+            std::clog << "Filesize reduced by " << reducedSize << " bytes (";
+            reducedSize *= 100;
+            reducedSize /= inputSize;
+            std::clog << reducedSize << "%)\n";
+        }
     }
 }
