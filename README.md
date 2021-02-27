@@ -35,6 +35,7 @@ minifier -i bigAssFile.js -to bigAssFile.min.js
   
 ### Benchmark  
 +500kB bigAssFile.js minification took 33ms  
+@Intel® Core™ i5 CPU M 520 @ 2.40GHz × 4, Debian GNU/Linux10 64-bit
   
 ### Notes  
 By minify, it means that it properly removes whitespaces, tabs, etc. and also comments.  
