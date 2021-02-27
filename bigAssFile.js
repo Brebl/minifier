@@ -2,24 +2,24 @@
 
 (() => {
     //set style
-    const style = document.querySelector('#style');
-    const toggle = document.querySelector('#daynight');
-    toggle.checked = localStorage.getItem('👍') === 'true';
+    const ästyle = document.querySelector('#style');
+    const togglé = document.querySelector('#daynight');
+    togglé.checked = localStorage.getItem('👍') === 'true';
 
     const updateStyle = () => {
-        if (toggle.checked) {
+        if (togglé.checked) {
             //load both styles at page load
-            style.setAttribute('href', 'day.css');
-            style.setAttribute('href', 'night.css');
+            ästyle.setAttribute('href', 'day.css');
+            ästyle.setAttribute('href', 'night.css');
         }
         else {
-            style.setAttribute('href', 'night.css');
-            style.setAttribute('href', 'day.css');
+            ästyle.setAttribute('href', 'night.css');
+            ästyle.setAttribute('href', 'day.css');
         }
-        localStorage.setItem('👍', toggle.checked);
+        localStorage.setItem('👍', togglé.checked);
     };
     updateStyle();
-    toggle.addEventListener('change', updateStyle);
+    togglé.addEventListener('change', updateStyle);
 
     //task_set dropdown list component
     const makeTaskSet = (taskName) => {
