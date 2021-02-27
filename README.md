@@ -6,14 +6,14 @@ Eg. html, css, js, xml...
 Linux:  
 * sudo apt update && sudo apt install build-essential
 * cd [path-to-minifier]
-* g++ main.cpp -std=gnu++17 -lstdc++fs -o minifier  
+* g++ main.cpp -std=gnu++17 -lstdc++fs -Wall -Ofast -o minifier  
 * sudo ln -s \`pwd\`/minifier /usr/local/bin/minifier  
   
 Windows:  
 * Download and install MinGW  
 * Type into windows search-box "run terminal"  
 * cd [path-to-minifier]  
-* g++ main.cpp -std=gnu++17 -lstdc++fs -o minifier.exe
+* g++ main.cpp -std=gnu++17 -lstdc++fs -Wall -Ofast -o minifier.exe
 * path=%cd%;%path%
   
 ## Usage  
@@ -34,7 +34,7 @@ So you can also pipe output to other programs, cgicc for example.
 minifier -i bigAssFile.js -to bigAssFile.min.js  
   
 ### Benchmark  
-500kB bigAssFile.js minification took 38ms  
++500kB bigAssFile.js minification took 33ms  
   
 ### Notes  
 By minify, it means that it properly removes whitespaces, tabs, etc. and also comments.  
