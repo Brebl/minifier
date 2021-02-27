@@ -28,7 +28,7 @@ So you can also pipe output to other programs, cgicc for example.
 -i  Input filename  
 -o  Output filename  
 -w  Change output file acces mode to overwrite. Default mode is append.  
--t  Timer log after minify.  
+-t  Log results after minify. (time & compression)  
   
 ### Example  
 minifier -i bigAssFile.js -to bigAssFile.min.js  
