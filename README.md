@@ -1,6 +1,7 @@
 # Minifier  
 This cli program is a file minifier written in c++. You can minify all sorts of file types.  
 Eg. html, css, js, xml...  
+UTF-8 compatible  
   
 ## Compile and setup 
 Linux:  
