@@ -14,21 +14,7 @@
 
 //-----------------------------------------------------------------------------
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <cctype>
-#include <limits>
-#include <chrono>
-#include <vector>
-#include <filesystem>
-#if __GNUC__ < 8
-#warning Your compiler seems a bit outdated
-#endif
-#ifdef __GNUC__
-#include <unistd.h> //getopt
-#endif
-#define MAX std::numeric_limits<std::streamsize>::max()
+#include "header.h"
 #define MAJOR_VERSION 2
 #define MINOR_VERSION 4
 #define PATCH_VERSION 2
@@ -40,6 +26,8 @@ int main(int argc, char **argv)
     char* output{nullptr};
     const char* mode{"a"};
     bool log{false};
+    bool obfuscation{false};
+    std::string bytes;
     std::filesystem::path filePath{std::filesystem::current_path()};
     uintmax_t inputSize{0}, outputSize{0}, reducedSize{0};
 // ------------------------------------------------------------
@@ -47,7 +35,7 @@ int main(int argc, char **argv)
 // ------------------------------------------------------------
 #ifdef __GNUC__
     int opt = 0;
-    while ((opt = getopt(argc, argv, "hvi:o:wt")) != -1) {
+    while ((opt = getopt(argc, argv, "hvi:o:wtf")) != -1) {
         switch (opt) {
         //help
         case 'h':
@@ -94,8 +82,8 @@ int main(int argc, char **argv)
             log = true;
             break;
         //obfuscate
-        case 'f';
-
+        case 'f':
+            obfuscation = true;
             break;
         default:
             abort();
@@ -141,54 +129,54 @@ int main(int argc, char **argv)
         if (!in) {
             throw std::runtime_error("input file opening error\n");
         }
-        char c;
-        while (in.get(c)) {
+        BYTE b;
+        while (in.get(b)) {
             //inside quotes, do nothing
-            if(c == '\'') {
+            if(b == '\'') {
                 do {
-                    std::cout << c;
-                    in.get(c);
-                    if(c == '\\') {
-                        std::cout << c;
-                        in.get(c);
-                        std::cout << c;
-                        in.get(c);
+                    std::cout << b;
+                    in.get(b);
+                    if(b == '\\') {
+                        std::cout << b;
+                        in.get(b);
+                        std::cout << b;
+                        in.get(b);
                     }
-                } while (c != '\'');
+                } while (b != '\'');
             }
-            if(c == '\"') {
+            if(b == '\"') {
                 do {
-                    std::cout << c;
-                    in.get(c);
-                    if(c == '\\') {
-                        std::cout << c;
-                        in.get(c);
-                        std::cout << c;
-                        in.get(c);
+                    std::cout << b;
+                    in.get(b);
+                    if(b == '\\') {
+                        std::cout << b;
+                        in.get(b);
+                        std::cout << b;
+                        in.get(b);
                     }
-                } while (c != '\"');
+                } while (b != '\"');
             }
             //after punct, discard all spaces until graph
             //punct means: !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-            if (ispunct(c)) { 
+            if (ispunct(b)) { 
                 while (isspace(in.peek())) {
                     in.ignore();
                 }
             }
             //after space, discard all spaces until graph
             //space means: space, tab and white-space control codes
-            if (isspace(c) && isspace(in.peek())) { 
+            if (isspace(b) && isspace(in.peek())) { 
                 while (isspace(in.peek())) {
                     in.ignore();
                 }
                 continue;
             }
             //discard space, if next is punct
-            if (isspace(c) && ispunct(in.peek())) { 
+            if (isspace(b) && ispunct(in.peek())) { 
                 continue;
             }
             //comments
-            if (c == '/') {
+            if (b == '/') {
                 //discard line comments
                 if (in.peek() == '/') {
                     in.ignore(MAX, '\n');
@@ -205,7 +193,13 @@ int main(int argc, char **argv)
                     continue;
                 }
             }
-            std::cout << c;
+            //obfuscate
+            if(obfuscation) {
+                obfuscate(in, b);
+            }
+            else {
+                std::cout << b;
+            }
         }
         in.close();
     }
