@@ -7,6 +7,13 @@
             "args": [
                 "-g",
                 "${file}",
+                "obfuscate.cpp",
+                "-I",
+                "${fileDirname}",
+                "-std=gnu++17",
+                "-lstdc++fs",
+                "-Wall", 
+                "-Ofast",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],

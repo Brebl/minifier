@@ -4,12 +4,13 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+    
         {
-            "name": "g++ - Debug active file",
+            "name": "Debug minifier",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": ["-i", "bigAssFile.js", "-wto", "bs.js"],
+            "args": ["-i", "bigAssFile.js", "-wtf", "-o", "bs.js"],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
             "environment": [],
