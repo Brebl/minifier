@@ -34,7 +34,7 @@ So you can also pipe output to other programs, cgicc for example.
 -f  Obfuscate javascript variables  
   
 ### Example  
-minifier -i bigAssFile.js -to bigAssFile.min.js  
+minifier -i bigAssFile.js -wtf -o bigAssFile.min.js  
   
 ### Benchmark  
 +500kB bigAssFile.js minification took 33ms  
