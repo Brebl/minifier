@@ -16,8 +16,8 @@
 
 #include "header.h"
 #define MAJOR_VERSION 2
-#define MINOR_VERSION 4
-#define PATCH_VERSION 2
+#define MINOR_VERSION 5
+#define PATCH_VERSION 0
 
 int main(int argc, char **argv)
 {
@@ -50,6 +50,7 @@ int main(int argc, char **argv)
                 << "-o  Output filename, or if ommitted then output will be printed to stdout.\n"
                 << "-w  Change output file acces mode to overwrite. Default mode is append.\n"
                 << "-t  Log results after minify. (time & compression)\n"
+                << "-f  Obfuscate javascript variables\n"
                 << "\n"
                 << "Feedback:\n"
                 << "https://github.com/Brebl/minifier\n";

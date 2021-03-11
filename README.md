@@ -1,5 +1,5 @@
 # Minifier  
-This cli program is a file minifier written in c++. You can minify all sorts of file types.  
+This cli program is a file minifier/bundler/obfuscator written in c++. You can minify all sorts of file types.  
 Eg. html, css, js, xml...  
 UTF-8 compatible  
   
@@ -7,19 +7,20 @@ UTF-8 compatible
 Linux:  
 * sudo apt update && sudo apt install build-essential
 * cd [path-to-minifier]
-* g++ main.cpp -std=gnu++17 -lstdc++fs -Wall -Ofast -o minifier  
-* sudo ln -s \`pwd\`/minifier /usr/local/bin/minifier  
+* g++ main.cpp obfuscate.cpp -std=gnu++17 -lstdc++fs -Wall -Ofast -o minifier  
+* sudo ln -s `pwd`/minifier /usr/local/bin/minifier  
   
 Windows:  
 * Download and install MinGW  
 * Type into windows search-box "run terminal"  
 * cd [path-to-minifier]  
-* g++ main.cpp -std=gnu++17 -lstdc++fs -Wall -Ofast -o minifier.exe
-* path=%cd%;%path%
+* g++ main.cpp obfuscate.cpp -std=gnu++17 -lstdc++fs -Wall -Ofast -o minifier  
+* path=%cd%;%path%  
   
 ## Usage  
 ### Arguments  
-Give this program as an argument the filename you want to minify.  
+Give this program as an argument the filename/-names you want to minify.  
+If you have multiple input files, they'll be bundled into single one.
 Output filename is optional. If it's not specified, output will be printed to stdout.  
 So you can also pipe output to other programs, cgicc for example.  
   
@@ -30,6 +31,7 @@ So you can also pipe output to other programs, cgicc for example.
 -o  Output filename  
 -w  Change output file acces mode to overwrite. Default mode is append.  
 -t  Log results after minify. (time & compression)  
+-f  Obfuscate javascript variables  
   
 ### Example  
 minifier -i bigAssFile.js -to bigAssFile.min.js  
