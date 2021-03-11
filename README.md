@@ -8,7 +8,7 @@ Linux:
 * sudo apt update && sudo apt install build-essential
 * cd [path-to-minifier]
 * g++ main.cpp obfuscate.cpp -std=gnu++17 -lstdc++fs -Wall -Ofast -o minifier  
-* sudo ln -s `pwd`/minifier /usr/local/bin/minifier  
+* sudo ln -s \`pwd\`/minifier /usr/local/bin/minifier  
   
 Windows:  
 * Download and install MinGW  
