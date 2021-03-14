@@ -22,7 +22,6 @@ Windows:
 Give this program as an argument the filename/-names you want to minify.  
 If you have multiple files, they'll be bundled into single one.
 Output filename is optional. If it's not specified, output will be printed to stdout.  
-So you can also pipe output to other programs, cgicc for example.  
   
 ### Options  
 -h  Help  
